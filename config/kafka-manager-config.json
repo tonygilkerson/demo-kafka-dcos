@@ -1,0 +1,12 @@
+{
+  "service": {
+    "name": "kafka-manager"
+  },
+  "kafka-manager": {
+    "cpus": 1,
+    "mem": 1024,
+    "zk": "master.mesos:2181",
+    "instances": 1,
+    "application_secret": "password"
+  }
+}
