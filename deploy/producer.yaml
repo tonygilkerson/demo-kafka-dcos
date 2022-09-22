@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer
+  labels:
+    app: producer
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: producer
+  template:
+    metadata:
+      labels:
+        app: producer
+    spec:
+       containers:
+        - name: producer
+          image: docker.io/bitnami/kafka:3.2.3-debian-11-r1
+          command:
+          - /bin/sh 
+          - -c
+          - "echo Start create message loop...;
+             for x in $(seq 1000); do 
+              echo message $x from $(hostname); 
+              sleep 1; 
+             done | kafka-console-producer.sh --broker-list kafka-0.kafka-headless.default.svc.cluster.local:9092 --topic test;
+             echo Done."
+
